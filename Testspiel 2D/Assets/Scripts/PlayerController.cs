@@ -33,14 +33,13 @@ public class PlayerController : MonoBehaviour
 	void FixedUpdate ()
 	{
 		float horizontal = Input.GetAxis ("Horizontal");
-		bool inputMoveRight = (horizontal > 0);
 		animator.SetFloat ("Speed", Mathf.Abs (horizontal));
 		rigidBody2D.velocity = new Vector2 (horizontal * normSpeed, rigidBody2D.velocity.y);
 
 		isGrounded = Physics2D.OverlapCircle (groundCheck.position, 0.15F, whatIsGround);
 		animator.SetBool ("IsGrounded", isGrounded);
 
-		if (inputMoveRight != lookingRight) 
+		if ((!lookingRight && horizontal > 0) || (lookingRight && horizontal < 0))
 			Flip ();
 	}
 
